@@ -3,7 +3,9 @@ def projectProperties = [
 ]
 properties(projectProperties)
 pipeline {
-  agent any
+  agent {
+    label "jenkins-maven"
+  }
   stages { 
     stage('Cleanup') {
       steps {
