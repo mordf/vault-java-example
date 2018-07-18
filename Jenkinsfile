@@ -44,11 +44,11 @@ pipeline {
     }
     stage('Integration Tests') {
       steps {
-      sh 'curl -o vault.zip https://releases.hashicorp.com/vault/0.7.0/vault_0.7.0_linux_arm.zip ; yes | unzip vault.zip'
+      sh 'curl -o vault.zip https://releases.hashicorp.com/vault/0.10.3/vault_0.10.3_linux_amd64.zip ; yes | unzip vault.zip'
         withCredentials([string(credentialsId: 'role', variable: 'ROLE_ID'),string(credentialsId: 'VAULTTOKEN', variable: 'VAULT_TOKEN')]) {
         sh '''
           set -x
-          curl https://raw.githubusercontent.com/ncorrare/vault-java-example/master/ca.crt > ca.crt
+          curl https://raw.githubusercontent.com/mordf/vault-java-example/master/ca.crt > ca.crt
           export VAULT_CACERT=$(pwd)/ca.crt
           export VAULT_ADDR=https://vault.service.lhr.consul:8200
           export SECRET_ID=$(./vault write -field=secret_id -f auth/approle/role/java-example/secret-id)
